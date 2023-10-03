@@ -8,6 +8,16 @@ export const headerArray: Array<keyof Data> = [
   'full_name',
 ];
 
+export const emptyDataArray: Data[] = [
+  {
+    id: 0,
+    first_name: '',
+    last_name: '',
+    age: 0,
+    full_name: '',
+  },
+];
+
 export const dataArray: Data[] = [
   {
     id: 1,

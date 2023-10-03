@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Data } from './types/data.interface';
-import { headerArray, dataArray } from './mocks/data.mock';
+import { headerArray, emptyDataArray } from './mocks/data.mock';
 
 @Component({
   selector: 'app-table',
@@ -8,6 +8,8 @@ import { headerArray, dataArray } from './mocks/data.mock';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  headerArray: Array<keyof Data> = headerArray;
-  dataArray: Data[] = dataArray;
+  @Input() headerArray: Array<keyof Data> = headerArray;
+  @Input() dataArray: Data[] = emptyDataArray;
+  // headerArray: Array<keyof Data> = headerArray;
+  // dataArray: Data[] = dataArray;
 }

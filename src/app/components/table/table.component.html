@@ -1,20 +1,21 @@
-<div>
-    <table class="table">
+<div class='table-component-container'>
+    <h1>User Table </h1>
+
+    <table id="user-table">
         <thead>
             <tr>
-                <th *ngFor='let header of headerArray'
-                    class='table-cell'>
+                <th *ngFor='let header of headerArray'>
                     {{header}}
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of dataArray">
-                <td *ngFor="let header of headerArray"
-                    class='table-cell'>
+                <td *ngFor="let header of headerArray">
                     {{ data[header]}}
                 </td>
             </tr>
         </tbody>
     </table>
+
 </div>
