@@ -2,7 +2,10 @@
     <h1>User Table </h1>
 
     <table id="user-table">
-        <thead>
+        <thead *ngIf="isHtml(columns)">
+            <div [innerHTML]="columns"></div>
+        </thead>
+        <thead *ngIf="headerArray">
             <tr>
                 <th *ngFor='let header of headerArray'>
                     {{header}}
