@@ -1,4 +1,4 @@
-import { Data } from '../types/data.interface';
+import { Data, Paginated } from '../types/data.interface';
 
 export const headerArray: Array<keyof Data> = [
   'id',
@@ -55,3 +55,7 @@ export const dataArray: Data[] = [
     full_name: 'John Snow',
   },
 ];
+
+export const PaginatedMock: Paginated<Data> = {
+  data: dataArray,
+};

@@ -1,5 +1,5 @@
 <div>
-  <app-table [headerArray]="headerArray"
-    [dataArray]="dataArray"
-    [columns]="'<h1>New Header</h1><p>new parag</p>'"></app-table>
+  <app-table [dataArray]="dataArray"
+    [customHtml]="'<h1>New Header</h1><p>hola</p>'"
+    [userHeaderArray]="['yest', 'not', 'maybe']"></app-table>
 </div>

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { headerArray, dataArray } from './components/table/mocks/data.mock';
+import {
+  headerArray,
+  dataArray,
+  PaginatedMock,
+} from './components/table/mocks/data.mock';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,5 +12,5 @@ import { headerArray, dataArray } from './components/table/mocks/data.mock';
 export class AppComponent {
   title = 'spendit-challenge';
   headerArray = headerArray;
-  dataArray = dataArray;
+  dataArray = PaginatedMock;
 }

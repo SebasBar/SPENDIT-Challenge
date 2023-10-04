@@ -4,6 +4,25 @@
   align-items: center;
 }
 
+.paginator-select_row {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.toogle_button {
+}
+
+.pagination_button {
+}
+
+.html_header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
 #user-table {
   border-collapse: collapse;
   width: 90%;

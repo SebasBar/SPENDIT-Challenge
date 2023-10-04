@@ -2,23 +2,36 @@
     <h1>User Table </h1>
 
     <table id="user-table">
-        <thead *ngIf="isHtml(columns)">
-            <div [innerHTML]="columns"></div>
+        <thead *ngIf="isHtml">
+            <div [innerHTML]="customHtml ? (customHtml | safeHtml) : ''"></div>
         </thead>
-        <thead *ngIf="headerArray">
+        <thead *ngIf="!userHeaderArray">
             <tr>
-                <th *ngFor='let header of headerArray'>
-                    {{header}}
+                <th *ngFor='let column of columnArray'>
+                    {{column}}
+                </th>
+            </tr>
+        </thead>
+        <thead *ngIf="userHeaderArray">
+            <tr>
+                <th *ngFor='let userHeader of userHeaderArray'>
+                    {{userHeader}}
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of dataArray">
-                <td *ngFor="let header of headerArray">
-                    {{ data[header]}}
+            <tr *ngFor="let data of dataArray.data">
+                <td *ngFor="let column of columnArray">
+                    {{ data[column]}}
                 </td>
             </tr>
         </tbody>
+
     </table>
+
+    <div class='paginator-select_row'>
+        <button class='toogle_button'>toogle row select</button>
+        <button class='pagination_button'>Pagination</button>
+    </div>
 
 </div>

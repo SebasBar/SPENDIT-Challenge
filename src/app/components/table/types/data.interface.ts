@@ -5,3 +5,10 @@ export interface Data {
   age: number;
   full_name: string;
 }
+
+export interface Paginated<T> {
+  data: Array<T>;
+  total?: number;
+  skip?: number;
+  take?: number;
+}
