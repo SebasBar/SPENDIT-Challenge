@@ -1,37 +1,59 @@
 <div class='table-component-container'>
     <h1>User Table </h1>
 
-    <table id="user-table">
-        <thead *ngIf="isHtml">
-            <div [innerHTML]="customHtml ? (customHtml | safeHtml) : ''"></div>
-        </thead>
-        <thead *ngIf="!userHeaderArray">
-            <tr>
-                <th *ngFor='let column of columnArray'>
-                    {{column}}
-                </th>
-            </tr>
-        </thead>
-        <thead *ngIf="userHeaderArray">
-            <tr>
-                <th *ngFor='let userHeader of userHeaderArray'>
-                    {{userHeader}}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of dataArray.data">
-                <td *ngFor="let column of columnArray">
-                    {{ data[column]}}
-                </td>
-            </tr>
-        </tbody>
+    <!-- Display in case user enters a valid Html string -->
+    <div *ngIf="isHtml">
+        <div class='html-custom-header'
+            [innerHTML]="customHtml ? (customHtml | safeHtml) : ''"></div>
+    </div>
+    <div class='user-table-checkbox'>
+        <table class='checkbox-column'
+            *ngIf="selectMode">
+            <div class='row-selection-text'>Row?</div>
+            <div *ngFor="let row of paginated.data; let i = index"
+                class='checkbox'>
+                <input type="checkbox"
+                    [(ngModel)]="selectedRows[i]"
+                    (change)="onCheckboxChange(i)" />
+            </div>
+        </table>
 
-    </table>
+        <table id="user-table">
 
-    <div class='paginator-select_row'>
-        <button class='toogle_button'>toogle row select</button>
-        <button class='pagination_button'>Pagination</button>
+            <!-- If user don't enters custom column string array -->
+            <thead *ngIf="!userColumnArray">
+                <tr>
+                    <th *ngFor='let column of columnArray'>
+                        {{column}}
+                    </th>
+                </tr>
+            </thead>
+
+            <!-- If user enters custom column string array -->
+            <thead *ngIf="userColumnArray">
+                <tr>
+
+                    <th *ngFor='let userColumn of userColumnArray'>
+                        {{userColumn}}
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let row of paginated.data; let i = index">
+                    <td *ngFor="let column of columnArray">
+                        {{ row[column]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class='paginator-select-row'>
+        <button (click)="onSelectAll()">SelectAll</button>
+        <button class='toogle-button'
+            (click)="toogleSelectMode()">{{toogleButtonText}}</button>
+        <button class='pagination-button'>Pagination</button>
     </div>
 
 </div>
