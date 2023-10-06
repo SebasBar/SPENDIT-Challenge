@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Data, Paginated } from './types/data.interface';
+import {
+  Data,
+  Paginated,
+  SelectModeButtonText,
+  SelectAllButtonText,
+} from './types/data.interface';
 import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
 @Component({
@@ -14,11 +19,13 @@ export class TableComponent implements OnInit {
 
   isHtml = false;
   columnArray: Array<keyof Data>;
-  selectMode = false;
+  isSelectMode = false;
   selectedRows: any[] = [];
   auxiliaryRows: any[] = [];
   userSelctedRows: any[] = [];
-  toogleButtonText = this.selectMode ? 'Exit Select Mode' : 'Enter Select Mode';
+  selectModeButtonText: SelectModeButtonText =
+    SelectModeButtonText.enterSelectMode;
+  selectAllButtonText: SelectAllButtonText = SelectAllButtonText.selectAll;
 
   ngOnInit(): void {
     this.isHtml =
@@ -35,6 +42,13 @@ export class TableComponent implements OnInit {
       this.auxiliaryRows[i] = false;
     }
     this.userSelctedRows = this.auxiliaryRows.filter((row) => row != false);
+
+    if (isAllElementNotFalse(this.selectedRows)) {
+      this.selectAllButtonText = SelectAllButtonText.unselectAll;
+    }
+    if (this.userSelctedRows.length < this.paginated.data.length) {
+      this.selectAllButtonText = SelectAllButtonText.selectAll;
+    }
     console.log('this.userSelctedRows', this.userSelctedRows);
   }
 
@@ -45,19 +59,22 @@ export class TableComponent implements OnInit {
         this.auxiliaryRows[i] = false;
       }
       this.userSelctedRows = [];
+      this.selectAllButtonText = SelectAllButtonText.selectAll;
     } else {
       for (let i = 0; i < this.selectedRows.length; i++) {
         this.selectedRows[i] = true;
         this.auxiliaryRows[i] = this.paginated.data[i];
         this.userSelctedRows[i] = this.paginated.data[i];
       }
+      this.selectAllButtonText = SelectAllButtonText.unselectAll;
     }
-    console.log('this.selectedRows', this.selectedRows);
-    console.log('this.userSelctedRows', this.userSelctedRows);
   }
 
   toogleSelectMode() {
-    this.selectMode = !this.selectMode;
+    this.isSelectMode = !this.isSelectMode;
+    this.selectModeButtonText = this.isSelectMode
+      ? SelectModeButtonText.exitSelectMode
+      : SelectModeButtonText.enterSelectMode;
   }
 
   toogleSelectionRow(row: Data) {

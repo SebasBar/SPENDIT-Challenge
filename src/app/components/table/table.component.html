@@ -6,9 +6,10 @@
         <div class='html-custom-header'
             [innerHTML]="customHtml ? (customHtml | safeHtml) : ''"></div>
     </div>
+
     <div class='user-table-checkbox'>
         <table class='checkbox-column'
-            *ngIf="selectMode">
+            *ngIf="isSelectMode">
             <div class='row-selection-text'>Row?</div>
             <div *ngFor="let row of paginated.data; let i = index"
                 class='checkbox'>
@@ -50,11 +51,13 @@
     </div>
 
     <div class='paginator-select-row'>
-        <button *ngIf="selectMode"
-            (click)="onSelectAll()">SelectAll</button>
-        <button class='toogle-button'
-            (click)="toogleSelectMode()">{{toogleButtonText}}</button>
-        <button class='pagination-button'>Pagination</button>
+        <button *ngIf="isSelectMode"
+            (click)="onSelectAll()">{{selectAllButtonText}}</button>
+        <div>
+            <button class='toogle-button'
+                (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
+            <button class='pagination-button'>Pagination</button>
+        </div>
     </div>
 
 </div>

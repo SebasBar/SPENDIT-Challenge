@@ -12,3 +12,13 @@ export interface Paginated<T> {
   skip?: number;
   take?: number;
 }
+
+export enum SelectModeButtonText {
+  enterSelectMode = 'Enter Select Mode',
+  exitSelectMode = 'Exit Select Mode',
+}
+
+export enum SelectAllButtonText {
+  selectAll = 'Select All',
+  unselectAll = 'Unselect All',
+}
