@@ -50,7 +50,8 @@
     </div>
 
     <div class='paginator-select-row'>
-        <button (click)="onSelectAll()">SelectAll</button>
+        <button *ngIf="selectMode"
+            (click)="onSelectAll()">SelectAll</button>
         <button class='toogle-button'
             (click)="toogleSelectMode()">{{toogleButtonText}}</button>
         <button class='pagination-button'>Pagination</button>

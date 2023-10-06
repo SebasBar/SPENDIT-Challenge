@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Data, Paginated } from './types/data.interface';
-import { isHtml } from 'src/app/utilities/utilities';
+import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
 @Component({
   selector: 'app-table',
@@ -39,13 +39,22 @@ export class TableComponent implements OnInit {
   }
 
   onSelectAll() {
-    for (let row in this.selectedRows) {
+    if (isAllElementNotFalse(this.selectedRows)) {
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        this.selectedRows[i] = false;
+        this.auxiliaryRows[i] = false;
+      }
+      this.userSelctedRows = [];
+    } else {
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        this.selectedRows[i] = true;
+        this.auxiliaryRows[i] = this.paginated.data[i];
+        this.userSelctedRows[i] = this.paginated.data[i];
+      }
     }
+    console.log('this.selectedRows', this.selectedRows);
+    console.log('this.userSelctedRows', this.userSelctedRows);
   }
-
-  // onClick() {
-  //   console.log('this.selectedRows', this.selectedRows);
-  // }
 
   toogleSelectMode() {
     this.selectMode = !this.selectMode;
@@ -54,15 +63,4 @@ export class TableComponent implements OnInit {
   toogleSelectionRow(row: Data) {
     console.log('row', row);
   }
-
-  // isObjectInArray(array: Data[] | [], objectSearch: Data) {
-  //   const objectKeys: string[] = Object.keys(objectSearch);
-
-  //   for (const object in array) {
-  //     for (let i = 0; i < objectKeys.length; i++) {
-  //       const key = objectKeys[i];
-  //       // if(object[key])
-  //     }
-  //   }
-  // }
 }
