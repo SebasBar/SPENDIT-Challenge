@@ -8,7 +8,7 @@
   display: flex;
   margin-top: 10px;
   width: 50%;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 60px;
 }
 
@@ -17,10 +17,15 @@
   gap: 10px;
 }
 
-.toogle-button {
+button {
+  background-color: LIGHTBLUE;
+  border: 1px solid grey;
+  border-radius: 12px;
 }
 
-.pagination-button {
+.select-pagination {
+  display: flex;
+  gap: 10px;
 }
 
 .html-custom-header {
@@ -33,9 +38,10 @@
   justify-content: space-between;
   padding: 8px;
   flex-direction: column;
-  border: 1px solid #797878;
+  border: 1px dotted #797878;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
 }
 
 .row-selection-text {

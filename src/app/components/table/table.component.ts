@@ -1,10 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import {
   Data,
   Paginated,
   SelectModeButtonText,
   SelectAllButtonText,
+  BeerData,
 } from './types/data.interface';
+import { emptyBeerData } from 'src/app/mocks/data.mock';
 import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
 @Component({
@@ -12,13 +20,13 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent<T> implements OnInit, OnChanges {
   @Input() userColumnArray?: Array<string>;
-  @Input() paginated: Paginated<Data>;
+  @Input() paginated: Paginated<BeerData> = { data: emptyBeerData };
   @Input() customHtml?: string;
 
   isHtml = false;
-  columnArray: Array<keyof Data>;
+  columnArray: Array<keyof BeerData>;
   isSelectMode = false;
   selectedRows: any[] = [];
   auxiliaryRows: any[] = [];
@@ -30,12 +38,18 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.isHtml =
       this.customHtml != undefined ? isHtml(this.customHtml) : false;
-    this.columnArray = Object.keys(this.paginated.data[0]) as Array<keyof Data>;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.paginated = changes['paginated'].currentValue;
+    this.columnArray = Object.keys(this.paginated.data[0]) as Array<
+      keyof BeerData
+    >;
     this.selectedRows = Array(this.paginated.data.length).fill(false);
     this.auxiliaryRows = Array(this.paginated.data.length).fill(false);
   }
 
-  onCheckboxChange(i: number) {
+  onCheckboxChange(i: number): void {
     if (this.selectedRows[i]) {
       this.auxiliaryRows[i] = this.paginated.data[i];
     } else {
@@ -52,7 +66,7 @@ export class TableComponent implements OnInit {
     console.log('this.userSelctedRows', this.userSelctedRows);
   }
 
-  onSelectAll() {
+  onSelectAll(): void {
     if (isAllElementNotFalse(this.selectedRows)) {
       for (let i = 0; i < this.selectedRows.length; i++) {
         this.selectedRows[i] = false;
@@ -70,14 +84,10 @@ export class TableComponent implements OnInit {
     }
   }
 
-  toogleSelectMode() {
+  toogleSelectMode(): void {
     this.isSelectMode = !this.isSelectMode;
     this.selectModeButtonText = this.isSelectMode
       ? SelectModeButtonText.exitSelectMode
       : SelectModeButtonText.enterSelectMode;
-  }
-
-  toogleSelectionRow(row: Data) {
-    console.log('row', row);
   }
 }

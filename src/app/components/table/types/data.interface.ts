@@ -6,6 +6,14 @@ export interface Data {
   full_name: string;
 }
 
+export interface BeerData {
+  id: number;
+  name: string;
+  ibu: number;
+  ph: number;
+  image_url: string;
+}
+
 export interface Paginated<T> {
   data: Array<T>;
   total?: number;
@@ -19,6 +27,6 @@ export enum SelectModeButtonText {
 }
 
 export enum SelectAllButtonText {
-  selectAll = 'Select All',
-  unselectAll = 'Unselect All',
+  selectAll = 'Select All Rows',
+  unselectAll = 'Unselect All Rows',
 }

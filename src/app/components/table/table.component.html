@@ -1,5 +1,4 @@
 <div class='table-component-container'>
-    <h1>User Table </h1>
 
     <!-- Display in case user enters a valid Html string -->
     <div *ngIf="isHtml">
@@ -53,10 +52,9 @@
     <div class='paginator-select-row'>
         <button *ngIf="isSelectMode"
             (click)="onSelectAll()">{{selectAllButtonText}}</button>
-        <div>
-            <button class='toogle-button'
-                (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
-            <button class='pagination-button'>Pagination</button>
+        <div class='select-pagination'>
+            <button (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
+            <button>Pagination</button>
         </div>
     </div>
 

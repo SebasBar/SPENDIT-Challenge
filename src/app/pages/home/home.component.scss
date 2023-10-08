@@ -1,0 +1,28 @@
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-title {
+  font-size: xxx-large;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+.home-subtitle {
+  font-style: italic;
+  font-weight: 500;
+  color: rgb(109, 108, 108);
+}
+
+.home-copyrights {
+  margin-top: 200px;
+  margin-left: 20px;
+  display: flex;
+  align-items: flex-start;
+  color: lightgrey;
+  font-style: italic;
+}

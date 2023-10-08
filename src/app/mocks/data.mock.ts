@@ -1,4 +1,4 @@
-import { Data, Paginated } from '../types/data.interface';
+import { Data, Paginated } from '../components/table/types/data.interface';
 
 export const headerArray: Array<keyof Data> = [
   'id',
@@ -18,13 +18,28 @@ export const emptyDataArray: Data[] = [
   },
 ];
 
-export const dataArray: Data[] = [
+export const emptyBeerData = [
+  {
+    id: 0,
+    name: 'string',
+    ibu: 0,
+    ph: 0,
+    image_url: 'string',
+  },
+];
+
+export const dataArray = [
   {
     id: 1,
     first_name: 'John',
     last_name: 'Snow',
     age: 35,
     full_name: 'John Snow',
+    idq: 1,
+    first_name1q: 'John',
+    last_nameq: 'Snow',
+    ageq: 35,
+    full_nameq: 'John Snow',
   },
   {
     id: 2,
@@ -32,6 +47,11 @@ export const dataArray: Data[] = [
     last_name: 'Snow',
     age: 35,
     full_name: 'John Snow',
+    idq: 1,
+    first_name1q: 'John',
+    last_nameq: 'Snow',
+    ageq: 35,
+    full_nameq: 'John Snow',
   },
   {
     id: 3,
@@ -39,6 +59,11 @@ export const dataArray: Data[] = [
     last_name: 'Snow',
     age: 35,
     full_name: 'John Snow',
+    idq: 1,
+    first_name1q: 'John',
+    last_nameq: 'Snow',
+    ageq: 35,
+    full_nameq: 'John Snow',
   },
   {
     id: 4,
@@ -46,6 +71,11 @@ export const dataArray: Data[] = [
     last_name: 'Snow',
     age: 35,
     full_name: 'John Snow',
+    idq: 1,
+    first_name1q: 'John',
+    last_nameq: 'Snow',
+    ageq: 35,
+    full_nameq: 'John Snow',
   },
   {
     id: 5,
@@ -53,6 +83,11 @@ export const dataArray: Data[] = [
     last_name: 'Snow',
     age: 35,
     full_name: 'John Snow',
+    idq: 1,
+    first_name1q: 'John',
+    last_nameq: 'Snow',
+    ageq: 35,
+    full_nameq: 'John Snow',
   },
   // {
   //   id: 1,
