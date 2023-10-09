@@ -7,20 +7,29 @@
 .paginator-select-row {
   display: flex;
   margin-top: 10px;
-  width: 50%;
-  justify-content: center;
+  width: 70%;
+  justify-content: space-evenly;
   gap: 60px;
+  align-items: center;
 }
 
 .user-table-checkbox {
   display: flex;
   gap: 10px;
+  width: 80vw;
 }
 
-.toogle-button {
+button {
+  background-color: LIGHTBLUE;
+  border: 1px solid grey;
+  border-radius: 12px;
+  height: 35px;
 }
 
-.pagination-button {
+.select-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .html-custom-header {
@@ -33,9 +42,10 @@
   justify-content: space-between;
   padding: 8px;
   flex-direction: column;
-  border: 1px solid #797878;
+  border: 1px dotted #797878;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
 }
 
 .row-selection-text {
