@@ -1,13 +1,15 @@
 import {
   Component,
   Input,
+  Output,
+  EventEmitter,
   OnInit,
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
 import {
-  Data,
   Paginated,
+  Pagination,
   SelectModeButtonText,
   SelectAllButtonText,
   BeerData,
@@ -22,8 +24,14 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 })
 export class TableComponent<T> implements OnInit, OnChanges {
   @Input() userColumnArray?: Array<string>;
-  @Input() paginated: Paginated<BeerData> = { data: emptyBeerData };
+  @Input() paginated: Paginated<BeerData> = {
+    data: emptyBeerData,
+    page: 1,
+    per_page: 5,
+    total_items: 90,
+  };
   @Input() customHtml?: string;
+  @Output() paginatedEvent = new EventEmitter<Pagination>();
 
   isHtml = false;
   columnArray: Array<keyof BeerData>;
@@ -34,6 +42,10 @@ export class TableComponent<T> implements OnInit, OnChanges {
   selectModeButtonText: SelectModeButtonText =
     SelectModeButtonText.enterSelectMode;
   selectAllButtonText: SelectAllButtonText = SelectAllButtonText.selectAll;
+  page: number;
+  per_page: number;
+  totalItems: number;
+  pagination: Pagination;
 
   ngOnInit(): void {
     this.isHtml =
@@ -47,6 +59,9 @@ export class TableComponent<T> implements OnInit, OnChanges {
     >;
     this.selectedRows = Array(this.paginated.data.length).fill(false);
     this.auxiliaryRows = Array(this.paginated.data.length).fill(false);
+    this.page = this.paginated.page;
+    this.per_page = this.paginated.per_page;
+    this.totalItems = this.paginated.total_items;
   }
 
   onCheckboxChange(i: number): void {
@@ -82,6 +97,7 @@ export class TableComponent<T> implements OnInit, OnChanges {
       }
       this.selectAllButtonText = SelectAllButtonText.unselectAll;
     }
+    console.log('this.userSelctedRows', this.userSelctedRows);
   }
 
   toogleSelectMode(): void {
@@ -89,5 +105,15 @@ export class TableComponent<T> implements OnInit, OnChanges {
     this.selectModeButtonText = this.isSelectMode
       ? SelectModeButtonText.exitSelectMode
       : SelectModeButtonText.enterSelectMode;
+  }
+
+  gty(page: number) {
+    // check if onchange page has selected all elements
+    if (isAllElementNotFalse(this.selectedRows)) this.onSelectAll();
+    this.paginatedEvent.emit({
+      page,
+      per_page: this.per_page,
+    });
+    console.log('page', page);
   }
 }

@@ -40,7 +40,11 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let row of paginated.data; let i = index">
+                <tr *ngFor="let row of paginated.data | paginate: {
+                    itemsPerPage: paginated.per_page,
+                    currentPage: paginated.page,
+                    totalItems: paginated.total_items }
+                let i = index">
                     <td *ngFor="let column of columnArray">
                         {{ row[column]}}
                     </td>
@@ -54,7 +58,7 @@
             (click)="onSelectAll()">{{selectAllButtonText}}</button>
         <div class='select-pagination'>
             <button (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
-            <button>Pagination</button>
+            <pagination-controls (pageChange)="gty(page = $event)"></pagination-controls>
         </div>
     </div>
 

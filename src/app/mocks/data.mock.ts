@@ -1,166 +1,26 @@
-import { Data, Paginated } from '../components/table/types/data.interface';
+import { BeerData, Paginated } from '../components/table/types/data.interface';
 
-export const headerArray: Array<keyof Data> = [
+export const headerArray: Array<keyof BeerData> = [
   'id',
-  'first_name',
-  'last_name',
-  'age',
-  'full_name',
+  'name',
+  'ibu',
+  'ph',
+  'tagline',
 ];
 
-export const emptyDataArray: Data[] = [
+export const emptyBeerData: BeerData[] = [
   {
     id: 0,
-    first_name: '',
-    last_name: '',
-    age: 0,
-    full_name: '',
-  },
-];
-
-export const emptyBeerData = [
-  {
-    id: 0,
-    name: 'string',
+    name: '',
     ibu: 0,
     ph: 0,
-    image_url: 'string',
+    tagline: '',
   },
 ];
 
-export const dataArray = [
-  {
-    id: 1,
-    first_name: 'John',
-    last_name: 'Snow',
-    age: 35,
-    full_name: 'John Snow',
-    idq: 1,
-    first_name1q: 'John',
-    last_nameq: 'Snow',
-    ageq: 35,
-    full_nameq: 'John Snow',
-  },
-  {
-    id: 2,
-    first_name: 'John',
-    last_name: 'Snow',
-    age: 35,
-    full_name: 'John Snow',
-    idq: 1,
-    first_name1q: 'John',
-    last_nameq: 'Snow',
-    ageq: 35,
-    full_nameq: 'John Snow',
-  },
-  {
-    id: 3,
-    first_name: 'John',
-    last_name: 'Snow',
-    age: 35,
-    full_name: 'John Snow',
-    idq: 1,
-    first_name1q: 'John',
-    last_nameq: 'Snow',
-    ageq: 35,
-    full_nameq: 'John Snow',
-  },
-  {
-    id: 4,
-    first_name: 'John',
-    last_name: 'Snow',
-    age: 35,
-    full_name: 'John Snow',
-    idq: 1,
-    first_name1q: 'John',
-    last_nameq: 'Snow',
-    ageq: 35,
-    full_nameq: 'John Snow',
-  },
-  {
-    id: 5,
-    first_name: 'John',
-    last_name: 'Snow',
-    age: 35,
-    full_name: 'John Snow',
-    idq: 1,
-    first_name1q: 'John',
-    last_nameq: 'Snow',
-    ageq: 35,
-    full_nameq: 'John Snow',
-  },
-  // {
-  //   id: 1,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 2,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 3,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 4,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 5,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 1,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 2,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 3,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 4,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-  // {
-  //   id: 5,
-  //   first_name: 'John',
-  //   last_name: 'Snow',
-  //   age: 35,
-  //   full_name: 'John Snow',
-  // },
-];
-
-export const PaginatedMock: Paginated<Data> = {
-  data: dataArray,
+export const emptyPaginatedMock: Paginated<BeerData> = {
+  data: emptyBeerData,
+  page: 1,
+  per_page: 5,
+  total_items: 90,
 };

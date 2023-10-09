@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap, throwError, map } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,9 +22,9 @@ export class BeersService {
     );
   }
 
-  getBeersPaginated(page: string, perPage: string): Observable<Array<any>> {
+  getBeersPaginated(page: number, perPage: number): Observable<Array<any>> {
     return this.httpClient
-      .get<Array<any>>(`${this.url}?page=${page}&per_page${perPage}`)
+      .get<Array<any>>(`${this.url}?page=${page}&per_page=${perPage}`)
       .pipe(
         tap((beers) => JSON.stringify(beers)),
         catchError(this.handleError)
