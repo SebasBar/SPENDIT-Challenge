@@ -3,7 +3,7 @@ export function isHtml(input: string): boolean {
   return regexHtmlValidation.test(input);
 }
 
-export function isAllElementNotFalse(rows: Array<any>): boolean {
+export function isAllElementNotFalse(rows: Array<object | false>): boolean {
   for (let i = 0; i < rows.length; i++) {
     if (rows[i] === false) {
       return false;
@@ -11,16 +11,3 @@ export function isAllElementNotFalse(rows: Array<any>): boolean {
   }
   return true;
 }
-
-// export function dataHasSameKeyValues(data: Array<object>): boolean {
-//   if (data.length === 0 || data === undefined) return false;
-
-//   const refObject = data[0];
-
-//   for (const key in refObject) {
-//     if (refObject.hasOwnProperty(key)) {
-//       for (let i = 1;)
-//     }
-//   }
-
-// }

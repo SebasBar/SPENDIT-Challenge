@@ -4,7 +4,6 @@ import {
   Pagination,
 } from './../../components/table/types/data.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { headerArray, emptyPaginatedMock } from '../../mocks/data.mock';
 import { BeersService } from 'src/app/services/beers.service';
 import { Subscription } from 'rxjs';
 
@@ -15,26 +14,25 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   constructor(private beerService: BeersService) {}
-  title = 'spendit-challenge';
-  headerArray = headerArray;
-  dataArray = emptyPaginatedMock;
   paginated: Paginated<BeerData>;
   subscriptions: Subscription[] = [];
   page = 1;
-  per_page = 5;
-  totalItems = 90;
+  per_page = 10;
+  totalItems = 325;
 
   ngOnInit(): void {
-    this.getBeers(this.page, this.per_page);
+    this.getBeersPaginated(this.page, this.per_page);
   }
 
   onPageChange(pagination: Pagination) {
-    this.getBeers(pagination.page, pagination.per_page);
-    console.log('pagination', pagination);
-    console.log('this.paginated', this.paginated);
+    this.getBeersPaginated(pagination.page, pagination.per_page);
   }
 
-  getBeers(page: number, per_page: number) {
+  onUserSelect(userSelectedRows: BeerData[]) {
+    console.log('userSelectedRows', userSelectedRows);
+  }
+
+  getBeersPaginated(page: number, per_page: number) {
     this.subscriptions.push(
       this.beerService.getBeersPaginated(page, per_page).subscribe({
         next: (beerResponse) => {

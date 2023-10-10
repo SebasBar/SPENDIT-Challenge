@@ -4,5 +4,6 @@
 </div>
 <app-table [paginated]="paginated"
     [customHtml]="'<h1>Beer Table</h1>'"
-    (paginatedEvent)="onPageChange($event)"></app-table>
+    (paginatedEvent)="onPageChange($event)"
+    (userRowSelectionEvent)="onUserSelect($event)"></app-table>
 <div class="home-copyrights">A SebasBar's webapp, 2023.</div>
