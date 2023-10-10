@@ -1,13 +1,5 @@
 import { BeerData, Paginated } from '../components/table/types/data.interface';
 
-export const headerArray: Array<keyof BeerData> = [
-  'id',
-  'name',
-  'ibu',
-  'ph',
-  'tagline',
-];
-
 export const emptyBeerData: BeerData[] = [
   {
     id: 0,

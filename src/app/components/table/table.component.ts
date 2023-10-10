@@ -22,16 +22,17 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent<T> implements OnInit, OnChanges {
-  @Input() userColumnArray?: Array<string>;
+export class TableComponent implements OnInit, OnChanges {
+  @Input() userColumnArray?: Array<string>; // custom column header text
   @Input() paginated: Paginated<BeerData> = {
     data: emptyBeerData,
     page: 1,
     per_page: 5,
-    total_items: 90,
+    total_items: 80,
   };
-  @Input() customHtml?: string;
+  @Input() customHtml?: string; // custom HTML header
   @Output() paginatedEvent = new EventEmitter<Pagination>();
+  @Output() userRowSelectionEvent = new EventEmitter<BeerData[]>();
 
   isHtml = false;
   columnArray: Array<keyof BeerData>;
@@ -45,7 +46,6 @@ export class TableComponent<T> implements OnInit, OnChanges {
   page: number;
   per_page: number;
   totalItems: number;
-  pagination: Pagination;
 
   ngOnInit(): void {
     this.isHtml =
@@ -53,6 +53,7 @@ export class TableComponent<T> implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // to detectchanges in paginated input
     this.paginated = changes['paginated'].currentValue;
     this.columnArray = Object.keys(this.paginated.data[0]) as Array<
       keyof BeerData
@@ -70,15 +71,18 @@ export class TableComponent<T> implements OnInit, OnChanges {
     } else {
       this.auxiliaryRows[i] = false;
     }
+    // this leaves only user selected rows.
     this.userSelctedRows = this.auxiliaryRows.filter((row) => row != false);
 
+    //checks if all rows are selected and change the button text
     if (isAllElementNotFalse(this.selectedRows)) {
       this.selectAllButtonText = SelectAllButtonText.unselectAll;
     }
+    // checks if any checkbox was unselected after using select all button
     if (this.userSelctedRows.length < this.paginated.data.length) {
       this.selectAllButtonText = SelectAllButtonText.selectAll;
     }
-    console.log('this.userSelctedRows', this.userSelctedRows);
+    this.userRowSelectionEvent.emit(this.userSelctedRows);
   }
 
   onSelectAll(): void {
@@ -97,7 +101,7 @@ export class TableComponent<T> implements OnInit, OnChanges {
       }
       this.selectAllButtonText = SelectAllButtonText.unselectAll;
     }
-    console.log('this.userSelctedRows', this.userSelctedRows);
+    this.userRowSelectionEvent.emit(this.userSelctedRows);
   }
 
   toogleSelectMode(): void {
@@ -107,13 +111,12 @@ export class TableComponent<T> implements OnInit, OnChanges {
       : SelectModeButtonText.enterSelectMode;
   }
 
-  gty(page: number) {
-    // check if onchange page has selected all elements
+  onPageChange(page: number) {
+    // check if onchange page has selected all elements and resets row arrays
     if (isAllElementNotFalse(this.selectedRows)) this.onSelectAll();
     this.paginatedEvent.emit({
       page,
       per_page: this.per_page,
     });
-    console.log('page', page);
   }
 }

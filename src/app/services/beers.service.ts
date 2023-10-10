@@ -8,16 +8,14 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 export class BeersService {
   url = 'https://api.punkapi.com/v2/beers';
   results: Array<any>;
-  // ?page=1&per_page=2
   constructor(private httpClient: HttpClient) {
     this.results = [];
   }
 
-  getAllBeers(): Observable<Array<any>> {
+  getBeers(): Observable<Array<any>> {
     return this.httpClient.get<Array<any>>(this.url).pipe(
       tap((beers: any) => {
         JSON.stringify(beers);
-        console.log('beers', beers);
       })
     );
   }
@@ -32,6 +30,6 @@ export class BeersService {
   }
 
   private handleError(error: ErrorEvent) {
-    return throwError(() => error.error.message);
+    return throwError(() => error);
   }
 }
