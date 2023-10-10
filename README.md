@@ -8,7 +8,9 @@ Run `npm install` and `ng serve` to run the project in developer server. Navigat
 
 ## Description
 
-- This app fetches information from Punk API [Punk API Documentation](https://punkapi.com/documentation/v2). It's fetching the maximum number of beers.
+This app fetches information from Punk API [Punk API Documentation](https://punkapi.com/documentation/v2). It's fetching the maximum number of beers.
+
+some comments:
 
 - Added select all (per page) functionality.
 - Added pipe to check custom html.
