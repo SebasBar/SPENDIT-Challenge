@@ -14,6 +14,7 @@ some comments:
 
 - Added select all (per page) functionality.
 - Added pipe to check custom html.
+- Added a selection of items per page to display.
 - The implementation does not use a custom user string for the column headers but it is supported.
 - For pagination, 'ngx-pagination' package has been used.
 - The selected rows can be seen in the console when entering select mode.
@@ -22,6 +23,5 @@ some comments:
 
 - Add pagination translation.
 - Add loader when fetching.
-- Add a selection of items per page to display.
 - Add persistent item selection.
 - Add tests.

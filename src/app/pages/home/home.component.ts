@@ -1,5 +1,5 @@
 import {
-  BeerData,
+  Data,
   Paginated,
   Pagination,
 } from './../../components/table/types/data.interface';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   constructor(private beerService: BeersService) {}
-  paginated: Paginated<BeerData>;
+  paginated: Paginated<Data>;
   subscriptions: Subscription[] = [];
   page = 1;
   per_page = 10;
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getBeersPaginated(pagination.page, pagination.per_page);
   }
 
-  onUserSelect(userSelectedRows: BeerData[]) {
+  onUserSelect(userSelectedRows: Data[]) {
     console.log('userSelectedRows', userSelectedRows);
   }
 

@@ -51,7 +51,7 @@
 
     <div class='paginator-select-row'>
         <button *ngIf="isSelectMode"
-            (click)="onSelectAll()">{{selectAllButtonText}}</button>
+            (click)="onSelectAllClick()">{{selectAllButtonText}}</button>
 
         <div class='select-pagination'>
             <button (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
@@ -64,5 +64,4 @@
             </select>
         </div>
     </div>
-
 </div>

@@ -7,13 +7,12 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
-import { Paginated, Pagination, BeerData } from './types/data.interface';
+import { Paginated, Pagination, Data } from './types/data.interface';
 import {
   SelectModeButtonText,
   SelectAllButtonText,
   perPageLength,
 } from './types/const';
-import { emptyBeerData } from 'src/app/mocks/data.mock';
 import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
 @Component({
@@ -23,18 +22,13 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() userColumnArray?: Array<string>; // custom column header text
-  @Input() paginated: Paginated<BeerData> = {
-    data: emptyBeerData,
-    page: 1,
-    per_page: 5,
-    total_items: 80,
-  };
+  @Input() paginated: Paginated<Data>;
   @Input() customHtml?: string; // custom HTML header
   @Output() paginatedEvent = new EventEmitter<Pagination>();
-  @Output() userRowSelectionEvent = new EventEmitter<BeerData[]>();
+  @Output() userRowSelectionEvent = new EventEmitter<Data[]>();
 
   isHtml = false;
-  columnArray: Array<keyof BeerData>;
+  columnArray: Array<keyof Data>;
   isSelectMode = false;
   selectedRows: any[] = [];
   auxiliaryRows: any[] = [];
@@ -59,9 +53,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // to detectchanges in paginated input
     this.paginated = changes['paginated'].currentValue;
-    this.columnArray = Object.keys(this.paginated.data[0]) as Array<
-      keyof BeerData
-    >;
+    this.columnArray = Object.keys(this.paginated.data[0]) as Array<keyof Data>;
     this.selectedRows = Array(this.paginated.data.length).fill(false);
     this.auxiliaryRows = Array(this.paginated.data.length).fill(false);
     this.page = this.paginated.page;
@@ -89,26 +81,14 @@ export class TableComponent implements OnInit, OnChanges {
     this.userRowSelectionEvent.emit(this.userSelctedRows);
   }
 
-  onSelectAll(): void {
-    if (isAllElementNotFalse(this.selectedRows)) {
-      for (let i = 0; i < this.selectedRows.length; i++) {
-        this.selectedRows[i] = false;
-        this.auxiliaryRows[i] = false;
-      }
-      this.userSelctedRows = [];
-      this.selectAllButtonText = SelectAllButtonText.selectAll;
-    } else {
-      for (let i = 0; i < this.selectedRows.length; i++) {
-        this.selectedRows[i] = true;
-        this.auxiliaryRows[i] = this.paginated.data[i];
-        this.userSelctedRows[i] = this.paginated.data[i];
-      }
-      this.selectAllButtonText = SelectAllButtonText.unselectAll;
-    }
-    this.userRowSelectionEvent.emit(this.userSelctedRows);
+  onSelectAllClick(): void {
+    isAllElementNotFalse(this.selectedRows)
+      ? this.unselectAllRows()
+      : this.selectAllRows();
   }
 
   toogleSelectMode(): void {
+    this.unselectAllRows();
     this.isSelectMode = !this.isSelectMode;
     this.selectModeButtonText = this.isSelectMode
       ? SelectModeButtonText.exitSelectMode
@@ -117,7 +97,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   onPageChange(page: number) {
     // check if onchange page has selected all elements and resets row arrays
-    if (isAllElementNotFalse(this.selectedRows)) this.onSelectAll();
+    if (isAllElementNotFalse(this.selectedRows)) this.onSelectAllClick();
     this.paginatedEvent.emit({
       page,
       per_page: this.per_page,
@@ -130,5 +110,26 @@ export class TableComponent implements OnInit, OnChanges {
       page: this.page,
       per_page: this.per_page,
     });
+    this.unselectAllRows();
+  }
+
+  selectAllRows() {
+    for (let i = 0; i < this.selectedRows.length; i++) {
+      this.selectedRows[i] = true;
+      this.auxiliaryRows[i] = this.paginated.data[i];
+      this.userSelctedRows[i] = this.paginated.data[i];
+    }
+    this.selectAllButtonText = SelectAllButtonText.unselectAll;
+    this.userRowSelectionEvent.emit(this.userSelctedRows);
+  }
+
+  unselectAllRows() {
+    for (let i = 0; i < this.selectedRows.length; i++) {
+      this.selectedRows[i] = false;
+      this.auxiliaryRows[i] = false;
+    }
+    this.userSelctedRows = [];
+    this.selectAllButtonText = SelectAllButtonText.selectAll;
+    this.userRowSelectionEvent.emit(this.userSelctedRows);
   }
 }
