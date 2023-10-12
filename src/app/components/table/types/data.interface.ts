@@ -1,11 +1,3 @@
-export interface BeerData {
-  id: number;
-  name: string;
-  ibu: number;
-  ph: number;
-  tagline: string;
-}
-
 export interface Paginated<T> {
   data: Array<T>;
   page: number;
@@ -18,3 +10,5 @@ export interface Pagination {
   per_page: number;
   take?: number;
 }
+
+export type Data = Record<string, any>;

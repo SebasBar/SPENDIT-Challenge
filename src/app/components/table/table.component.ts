@@ -7,13 +7,12 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
-import { Paginated, Pagination, BeerData } from './types/data.interface';
+import { Paginated, Pagination, Data } from './types/data.interface';
 import {
   SelectModeButtonText,
   SelectAllButtonText,
   perPageLength,
 } from './types/const';
-import { emptyBeerData } from 'src/app/mocks/data.mock';
 import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
 @Component({
@@ -23,18 +22,13 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() userColumnArray?: Array<string>; // custom column header text
-  @Input() paginated: Paginated<BeerData> = {
-    data: emptyBeerData,
-    page: 1,
-    per_page: 5,
-    total_items: 80,
-  };
+  @Input() paginated: Paginated<Data>;
   @Input() customHtml?: string; // custom HTML header
   @Output() paginatedEvent = new EventEmitter<Pagination>();
-  @Output() userRowSelectionEvent = new EventEmitter<BeerData[]>();
+  @Output() userRowSelectionEvent = new EventEmitter<Data[]>();
 
   isHtml = false;
-  columnArray: Array<keyof BeerData>;
+  columnArray: Array<keyof Data>;
   isSelectMode = false;
   selectedRows: any[] = [];
   auxiliaryRows: any[] = [];
@@ -59,9 +53,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // to detectchanges in paginated input
     this.paginated = changes['paginated'].currentValue;
-    this.columnArray = Object.keys(this.paginated.data[0]) as Array<
-      keyof BeerData
-    >;
+    this.columnArray = Object.keys(this.paginated.data[0]) as Array<keyof Data>;
     this.selectedRows = Array(this.paginated.data.length).fill(false);
     this.auxiliaryRows = Array(this.paginated.data.length).fill(false);
     this.page = this.paginated.page;
