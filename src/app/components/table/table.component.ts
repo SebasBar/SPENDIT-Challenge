@@ -7,13 +7,12 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
+import { Paginated, Pagination, BeerData } from './types/data.interface';
 import {
-  Paginated,
-  Pagination,
   SelectModeButtonText,
   SelectAllButtonText,
-  BeerData,
-} from './types/data.interface';
+  perPageLength,
+} from './types/const';
 import { emptyBeerData } from 'src/app/mocks/data.mock';
 import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 
@@ -46,10 +45,15 @@ export class TableComponent implements OnInit, OnChanges {
   page: number;
   per_page: number;
   totalItems: number;
+  optionArrayPerPage = Array.from(
+    { length: perPageLength },
+    (_, index) => index + 1
+  );
 
   ngOnInit(): void {
     this.isHtml =
       this.customHtml != undefined ? isHtml(this.customHtml) : false;
+    perPageLength;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -116,6 +120,14 @@ export class TableComponent implements OnInit, OnChanges {
     if (isAllElementNotFalse(this.selectedRows)) this.onSelectAll();
     this.paginatedEvent.emit({
       page,
+      per_page: this.per_page,
+    });
+  }
+
+  onPageSizeChange(event: Event) {
+    this.per_page = parseInt((event.currentTarget as HTMLInputElement).value);
+    this.paginatedEvent.emit({
+      page: this.page,
       per_page: this.per_page,
     });
   }

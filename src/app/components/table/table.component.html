@@ -57,6 +57,12 @@
             <button (click)="toogleSelectMode()">{{selectModeButtonText}}</button>
             <pagination-controls (pageChange)="onPageChange(page = $event)"></pagination-controls>
         </div>
+        <div class='items-per-page'>Items per Page:
+            <select (change)="onPageSizeChange($event)">
+                <option *ngFor="let optionItem of optionArrayPerPage"
+                    [ngValue]="per_page">{{optionItem}}</option>
+            </select>
+        </div>
     </div>
 
 </div>

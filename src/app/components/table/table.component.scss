@@ -55,6 +55,11 @@ button {
   align-items: center;
 }
 
+.items-per-page {
+  display: flex;
+  gap: 5px;
+}
+
 #user-table {
   border-collapse: collapse;
   width: 90%;
