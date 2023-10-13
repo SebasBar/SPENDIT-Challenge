@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   constructor(private beerService: BeersService) {}
   paginated: Paginated<Data>;
+  paginatedPromise: Promise<Paginated<Data>>;
   subscriptions: Subscription[] = [];
   page = 1;
   per_page = 10;
@@ -53,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             total_items: this.totalItems,
           };
           this.showLoading = false;
+          this.paginatedPromise = new Promise((res, _) => res(this.paginated));
         },
         error: (err) => console.error(err),
       })

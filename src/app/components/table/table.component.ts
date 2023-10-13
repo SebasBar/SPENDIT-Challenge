@@ -22,11 +22,12 @@ import { isHtml, isAllElementNotFalse } from 'src/app/utilities/utilities';
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() userColumnArray?: Array<string>; // custom column header text
-  @Input() paginated: Paginated<Data>;
+  @Input() paginatedPromise: Promise<Paginated<Data>>;
   @Input() customHtml?: string; // custom HTML header
   @Output() paginatedEvent = new EventEmitter<Pagination>();
   @Output() userRowSelectionEvent = new EventEmitter<Data[]>();
 
+  paginated: Paginated<Data>;
   isHtml = false;
   columnArray: Array<keyof Data>;
   isSelectMode = false;
@@ -47,12 +48,12 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.isHtml =
       this.customHtml != undefined ? isHtml(this.customHtml) : false;
-    perPageLength;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // to detectchanges in paginated input
-    this.paginated = changes['paginated'].currentValue;
+  async ngOnChanges(changes: SimpleChanges) {
+    await changes['paginatedPromise'].currentValue.then(
+      (res: Paginated<Data>) => (this.paginated = res)
+    );
     this.columnArray = Object.keys(this.paginated.data[0]) as Array<keyof Data>;
     this.selectedRows = Array(this.paginated.data.length).fill(false);
     this.auxiliaryRows = Array(this.paginated.data.length).fill(false);
