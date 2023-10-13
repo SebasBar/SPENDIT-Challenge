@@ -5,7 +5,7 @@
 <div class='loading-text'
     *ngIf="showLoading">Loading....</div>
 <app-table *ngIf="!showLoading"
-    [paginated]="paginated"
+    [paginatedPromise]='paginatedPromise'
     [customHtml]="'<h1>Beer Table</h1>'"
     (paginatedEvent)="onPageChange($event)"
     (userRowSelectionEvent)="onUserSelect($event)"></app-table>
