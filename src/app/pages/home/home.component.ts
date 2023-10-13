@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   page = 1;
   per_page = 10;
   totalItems = 325;
+  showLoading = false;
 
   ngOnInit(): void {
     this.getBeersPaginated(this.page, this.per_page);
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getBeersPaginated(page: number, per_page: number) {
+    this.showLoading = true;
     this.subscriptions.push(
       this.beerService.getBeersPaginated(page, per_page).subscribe({
         next: (beerResponse) => {
@@ -50,6 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             per_page,
             total_items: this.totalItems,
           };
+          this.showLoading = false;
         },
         error: (err) => console.error(err),
       })

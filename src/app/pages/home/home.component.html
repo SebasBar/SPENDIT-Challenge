@@ -2,7 +2,10 @@
     <div class='home-title'>Spendit Frontend Challenge</div>
     <div class='home-subtitle'>This webapp is fetching beer information from Punk api</div>
 </div>
-<app-table [paginated]="paginated"
+<div class='loading-text'
+    *ngIf="showLoading">Loading....</div>
+<app-table *ngIf="!showLoading"
+    [paginated]="paginated"
     [customHtml]="'<h1>Beer Table</h1>'"
     (paginatedEvent)="onPageChange($event)"
     (userRowSelectionEvent)="onUserSelect($event)"></app-table>

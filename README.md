@@ -15,6 +15,8 @@ some comments:
 - Added select all (per page) functionality.
 - Added pipe to check custom html.
 - Added a selection of items per page to display.
+- Added loading while fetching.
+- I assumed that the data will always have a key value as string in the form of 'Record<string, any>'.
 - The implementation does not use a custom user string for the column headers but it is supported.
 - For pagination, 'ngx-pagination' package has been used.
 - The selected rows can be seen in the console when entering select mode.
@@ -22,6 +24,5 @@ some comments:
 ## Improvements
 
 - Add pagination translation.
-- Add loader when fetching.
 - Add persistent item selection.
 - Add tests.
